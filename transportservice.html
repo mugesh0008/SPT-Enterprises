@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transport Services – SPT Transport Station | SPT Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-light:#E8C97A; --black:#0A0A0A;
+      --dark:#111419; --dark2:#1A1F27; --dark3:#242B36;
+      --white:#F8F5F0; --gray:#8A8F99;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden;}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 5vw;height:72px;
+      background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(201,168,76,0.2);
+    }
+    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;}
+    .nav-logo img{height:48px;width:48px;object-fit:contain;border-radius:6px;}
+    .nav-logo-text{display:flex;flex-direction:column;}
+    .nav-logo-text span:first-child{
+      font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:900;
+      color:var(--gold);letter-spacing:0.04em;line-height:1;
+    }
+    .nav-logo-text span:last-child{
+      font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;
+      letter-spacing:0.18em;color:var(--gray);text-transform:uppercase;
+    }
+    .nav-back{
+      display:inline-flex;align-items:center;gap:10px;
+      font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;
+      letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--gold);text-decoration:none;
+      border:1px solid rgba(201,168,76,0.3);padding:8px 18px;border-radius:3px;
+      transition:all 0.2s;
+    }
+    .nav-back:hover{background:rgba(201,168,76,0.1);}
+
+    .page-hero{
+      min-height:60vh;display:flex;align-items:flex-end;
+      position:relative;overflow:hidden;padding:100px 5vw 60px;
+    }
+    .page-hero-bg{
+      position:absolute;inset:0;
+      background:linear-gradient(160deg,rgba(10,10,10,0.96) 0%,rgba(17,20,25,0.88) 100%);
+    }
+    .page-hero-img{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:cover;opacity:0.25;filter:saturate(0.6);
+    }
+    .page-hero-grid{
+      position:absolute;inset:0;opacity:0.03;
+      background-image:linear-gradient(rgba(201,168,76,0.5) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(201,168,76,0.5) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+    .page-hero-content{position:relative;z-index:1;}
+    .page-eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;
+      letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+    }
+    .page-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
+    .page-hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.4rem,5vw,4.5rem);font-weight:900;line-height:1.08;margin-bottom:20px;
+    }
+    .page-hero h1 span{color:var(--gold);}
+    .page-hero p{font-size:1.05rem;color:var(--gray);max-width:560px;line-height:1.75;font-weight:300;}
+
+    .gallery{padding:80px 5vw;background:var(--dark2);}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    @media(max-width:700px){.gallery-grid{grid-template-columns:1fr;}}
+    .gallery-item{
+      border-radius:6px;overflow:hidden;border:1px solid rgba(201,168,76,0.15);transition:all 0.3s;
+    }
+    .gallery-item:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+    .gallery-item img{
+      width:100%;height:260px;object-fit:cover;display:block;
+      transition:transform 0.5s,filter 0.3s;filter:brightness(0.85);
+    }
+    .gallery-item:hover img{transform:scale(1.05);filter:brightness(1.05);}
+
+    .content-section{padding:80px 5vw;}
+    .content-section.alt{background:var(--dark2);}
+
+    .section-tag{
+      display:inline-flex;align-items:center;gap:10px;
+      font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;
+      letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;
+    }
+    .section-tag::before{content:'';width:24px;height:1px;background:var(--gold);}
+    .section-title{
+      font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.6rem);
+      font-weight:900;color:var(--white);line-height:1.15;margin-bottom:20px;
+    }
+    .section-title span{color:var(--gold);}
+    .divider{width:50px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:36px;}
+
+    .prose p{font-size:1rem;color:var(--gray);line-height:1.82;margin-bottom:18px;font-weight:300;}
+    .prose strong{color:var(--white);font-weight:500;}
+
+    /* SERVICES GRID */
+    .services-list{display:flex;flex-direction:column;gap:16px;}
+    .service-row{
+      display:flex;gap:20px;align-items:flex-start;padding:24px;
+      background:var(--dark3);border-radius:6px;border-left:3px solid var(--gold);
+      transition:all 0.2s;
+    }
+    .service-row:hover{background:rgba(201,168,76,0.04);}
+    .service-row-icon{font-size:1.8rem;flex-shrink:0;}
+    .service-row h4{
+      font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;
+      letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;
+    }
+    .service-row p{font-size:0.9rem;color:var(--gray);line-height:1.65;}
+
+    /* FLEET */
+    .fleet-hero{
+      padding:70px 5vw;
+      background:linear-gradient(135deg,var(--black) 0%,#0D1117 100%);
+      position:relative;overflow:hidden;
+    }
+    .fleet-hero::before{
+      content:'🚛';position:absolute;right:5vw;top:50%;transform:translateY(-50%);
+      font-size:12rem;opacity:0.04;pointer-events:none;
+    }
+    .fleet-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+    @media(max-width:800px){.fleet-inner{grid-template-columns:1fr;gap:36px;}}
+    .fleet-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    .fleet-stat{
+      padding:28px 24px;background:var(--dark2);border-radius:6px;
+      border:1px solid rgba(201,168,76,0.15);text-align:center;transition:all 0.3s;
+    }
+    .fleet-stat:hover{border-color:var(--gold);transform:translateY(-3px);}
+    .fleet-stat-icon{font-size:2.2rem;margin-bottom:12px;}
+    .fleet-stat-num{
+      font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;
+      color:var(--gold);line-height:1;
+    }
+    .fleet-stat-label{
+      font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--gray);margin-top:6px;
+    }
+
+    /* CLIENTS SUPPLIED */
+    .projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    @media(max-width:600px){.projects-grid{grid-template-columns:1fr;}}
+    .project-tag{
+      padding:16px 20px;background:var(--dark3);border-radius:4px;
+      border:1px solid rgba(201,168,76,0.12);
+      font-size:0.9rem;color:var(--white);
+      display:flex;align-items:center;gap:10px;
+      transition:all 0.2s;
+    }
+    .project-tag:hover{border-color:var(--gold);color:var(--gold-light);}
+    .project-tag::before{content:'★';color:var(--gold);font-size:0.75rem;}
+
+    /* OPERATIONAL EXCELLENCE */
+    .ops-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    @media(max-width:700px){.ops-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:400px){.ops-grid{grid-template-columns:1fr;}}
+    .ops-item{
+      padding:24px;text-align:center;background:var(--dark3);border-radius:6px;
+      border:1px solid rgba(201,168,76,0.1);transition:all 0.2s;
+    }
+    .ops-item:hover{border-color:var(--gold);}
+    .ops-icon{font-size:2rem;margin-bottom:12px;}
+    .ops-item h4{
+      font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;
+      letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;
+    }
+    .ops-item p{font-size:0.85rem;color:var(--gray);line-height:1.6;}
+
+    /* INDUSTRIES */
+    .industries-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    @media(max-width:700px){.industries-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:400px){.industries-grid{grid-template-columns:1fr;}}
+    .industry-item{
+      padding:20px;text-align:center;background:var(--dark3);border-radius:6px;
+      border:1px solid rgba(201,168,76,0.1);transition:all 0.2s;
+    }
+    .industry-item:hover{border-color:var(--gold);}
+    .industry-item .icon{font-size:2rem;margin-bottom:10px;}
+    .industry-item p{
+      font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;
+      letter-spacing:0.08em;text-transform:uppercase;color:var(--white);
+    }
+
+    /* MISSION VISION */
+    .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+    @media(max-width:700px){.mv-grid{grid-template-columns:1fr;}}
+    .mv-card{
+      padding:40px;border-radius:6px;
+      border:1px solid rgba(201,168,76,0.15);
+      background:rgba(255,255,255,0.02);
+    }
+    .mv-card h3{
+      font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+      color:var(--gold);margin-bottom:18px;
+    }
+    .mv-card p{font-size:1rem;color:var(--gray);line-height:1.8;font-weight:300;}
+
+    /* QUOTE STRIP */
+    .quote-strip{
+      padding:70px 5vw;background:var(--black);text-align:center;
+    }
+    .quote-strip blockquote{
+      font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,2rem);
+      font-weight:700;color:var(--white);font-style:italic;line-height:1.5;
+      max-width:700px;margin:0 auto;
+      border-left:none;
+    }
+    .quote-strip blockquote::before{
+      content:'"';font-size:4rem;color:var(--gold);line-height:0;vertical-align:-0.5em;margin-right:8px;
+    }
+    .quote-strip cite{
+      display:block;margin-top:20px;font-family:'Barlow Condensed',sans-serif;
+      font-size:0.82rem;letter-spacing:0.18em;text-transform:uppercase;
+      color:var(--gold);font-style:normal;
+    }
+
+    .cta-strip{padding:80px 5vw;background:var(--dark2);text-align:center;}
+    .cta-strip h2{
+      font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);
+      font-weight:900;color:var(--white);margin-bottom:16px;
+    }
+    .cta-strip p{font-size:1rem;color:var(--gray);margin-bottom:36px;font-weight:300;}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+    .btn-primary{
+      display:inline-flex;align-items:center;gap:10px;
+      background:var(--gold);color:var(--black);
+      font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;
+      letter-spacing:0.14em;text-transform:uppercase;font-weight:700;
+      padding:14px 32px;border-radius:3px;text-decoration:none;
+      transition:all 0.3s;border:2px solid var(--gold);
+    }
+    .btn-primary:hover{background:transparent;color:var(--gold);}
+    .btn-outline{
+      display:inline-flex;align-items:center;gap:10px;
+      background:transparent;color:var(--white);
+      font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;
+      letter-spacing:0.14em;text-transform:uppercase;font-weight:600;
+      padding:14px 32px;border-radius:3px;text-decoration:none;
+      transition:all 0.3s;border:2px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+    footer{
+      background:var(--black);border-top:1px solid rgba(201,168,76,0.15);
+      padding:32px 5vw;text-align:center;
+    }
+    footer p{font-size:0.85rem;color:var(--gray);}
+    footer span{color:var(--gold);}
+
+    .scroll-top{
+      position:fixed;bottom:28px;right:28px;width:44px;height:44px;
+      background:var(--gold);color:var(--black);border-radius:4px;
+      border:none;cursor:pointer;font-size:1.2rem;
+      display:none;align-items:center;justify-content:center;
+      z-index:999;transition:all 0.2s;box-shadow:0 4px 20px rgba(201,168,76,0.4);
+    }
+    .scroll-top:hover{background:var(--gold-light);transform:translateY(-2px);}
+    .scroll-top.show{display:flex;}
+
+    .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .fade-up.visible{opacity:1;transform:translateY(0);}
+    @media(max-width:768px){.page-hero{min-height:50vh;padding-top:90px;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="images/logo.jpg" alt="SPT Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <span>SPT Enterprises</span>
+      <span>Excellence Since 2007</span>
+    </div>
+  </a>
+  <a class="nav-back" href="index.html">← Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <img class="page-hero-img" src="images/transportservice-home.jfif" alt="Transport Services" onerror="this.style.opacity='0'">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="page-eyebrow">SPT Transport Station — Hosur &amp; Bengaluru</div>
+    <h1>Transport <span>Services</span><br>Specialized Aggregates<br>&amp; Sand Logistics</h1>
+    <p>40+ vehicles. 24/7 operations. Zero-delay delivery across the Hosur–Bengaluru corridor.</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="section-tag">Our Fleet in Action</div>
+  <div class="section-title">Transport Services <span>Gallery</span></div>
+  <div class="divider"></div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="images/transportservice/image1.jpeg" alt="Transport 1" onerror="this.src='https://placehold.co/600x260/1A1F27/C9A84C?text=Transport+1'">
+    </div>
+    <div class="gallery-item">
+      <img src="images/transportservice/image2.jpg" alt="Transport 2" onerror="this.src='https://placehold.co/600x260/1A1F27/C9A84C?text=Transport+2'">
+    </div>
+    <div class="gallery-item">
+      <img src="images/transportservice/image3.jfif" alt="Transport 3" onerror="this.src='https://placehold.co/600x260/1A1F27/C9A84C?text=Transport+3'">
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="content-section">
+  <div class="section-tag">Who We Are</div>
+  <div class="section-title">About <span>SPT Transport Station</span></div>
+  <div class="divider"></div>
+  <div class="prose fade-up">
+    <p><strong>SPT Transport Station</strong> is a professionally managed transportation division dedicated exclusively to the delivery of construction materials such as aggregates and sand. With strong operational discipline and a fleet of <strong>40+ vehicles</strong>, we have established ourselves as a trusted logistics partner for leading construction and infrastructure companies.</p>
+    <p>We operate with one clear objective — <strong>timely, safe, and uninterrupted delivery</strong> of construction materials to ensure smooth project execution. Every dispatch is carefully planned and monitored to ensure zero delay and maximum efficiency.</p>
+    <p>Our strong operational network covers the entire <strong>Hosur – Bengaluru region</strong>, with the capability to handle multiple large-scale projects simultaneously without compromising delivery timelines.</p>
+  </div>
+</div>
+
+<!-- CORE SERVICES -->
+<div class="content-section alt">
+  <div class="section-tag">What We Do</div>
+  <div class="section-title">Our Core <span>Services</span></div>
+  <div class="divider"></div>
+  <div class="services-list">
+    <div class="service-row fade-up">
+      <div class="service-row-icon">🪨</div>
+      <div>
+        <h4>Aggregate Transportation</h4>
+        <p>Bulk transportation of all standard aggregate sizes — from crusher to construction site, delivered with precision and punctuality.</p>
+      </div>
+    </div>
+    <div class="service-row fade-up" style="transition-delay:0.1s">
+      <div class="service-row-icon">🏖️</div>
+      <div>
+        <h4>Sand Delivery</h4>
+        <p>Bulk and continuous sand supply to construction sites — maintaining uninterrupted workflow for your project teams.</p>
+      </div>
+    </div>
+    <div class="service-row fade-up" style="transition-delay:0.2s">
+      <div class="service-row-icon">📋</div>
+      <div>
+        <h4>Dedicated Project-Based Contracts</h4>
+        <p>Customized, long-term transport contracts for projects requiring consistent, high-volume material supply throughout construction.</p>
+      </div>
+    </div>
+    <div class="service-row fade-up" style="transition-delay:0.3s">
+      <div class="service-row-icon">⚡</div>
+      <div>
+        <h4>Scheduled &amp; Emergency Deliveries</h4>
+        <p>Pre-planned scheduled deliveries as well as emergency dispatch capability to handle any project urgency.</p>
+      </div>
+    </div>
+    <div class="service-row fade-up" style="transition-delay:0.4s">
+      <div class="service-row-icon">📍</div>
+      <div>
+        <h4>Direct Site Delivery</h4>
+        <p>Door-to-site delivery with complete dispatch coordination — your materials reach exactly where needed, on time.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLEET SECTION -->
+<div class="fleet-hero">
+  <div class="fleet-inner">
+    <div>
+      <div class="section-tag">Our Capability</div>
+      <div class="section-title">Fleet Strength &amp; <span>Logistics</span></div>
+      <div class="divider"></div>
+      <div class="prose">
+        <p>Our transport division is powered by <strong>40+ own vehicles</strong> including high-capacity tippers and lorries, operated by experienced drivers and route coordinators. With 24/7 operational monitoring, we maintain complete control over every delivery.</p>
+        <p>Our strong supply network across the <strong>Hosur – Bengaluru region</strong> enables us to manage multiple large-scale project requirements simultaneously without any compromise on delivery timelines.</p>
+      </div>
+    </div>
+    <div class="fleet-stats-grid">
+      <div class="fleet-stat fade-up">
+        <div class="fleet-stat-icon">🚛</div>
+        <div class="fleet-stat-num">40+</div>
+        <div class="fleet-stat-label">Own Vehicles</div>
+      </div>
+      <div class="fleet-stat fade-up" style="transition-delay:0.1s">
+        <div class="fleet-stat-icon">📅</div>
+        <div class="fleet-stat-num">24/7</div>
+        <div class="fleet-stat-label">Monitoring</div>
+      </div>
+      <div class="fleet-stat fade-up" style="transition-delay:0.2s">
+        <div class="fleet-stat-icon">📍</div>
+        <div class="fleet-stat-num">0</div>
+        <div class="fleet-stat-label">Delay Record</div>
+      </div>
+      <div class="fleet-stat fade-up" style="transition-delay:0.3s">
+        <div class="fleet-stat-icon">🤝</div>
+        <div class="fleet-stat-num">100%</div>
+        <div class="fleet-stat-label">On-Time Supply</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS SUPPLIED -->
+<div class="content-section">
+  <div class="section-tag">Our Portfolio</div>
+  <div class="section-title">Major Projects <span>Supplied</span></div>
+  <div class="divider"></div>
+  <p style="font-size:1rem;color:var(--gray);line-height:1.75;margin-bottom:32px;font-weight:300;">We have successfully supplied aggregates and sand transportation services to the following reputed projects, helping maintain smooth and on-time construction progress:</p>
+  <div class="projects-grid">
+    <div class="project-tag">Sumadhura Capitol Towers Pvt Ltd</div>
+    <div class="project-tag">Sumadhura Asper Amber</div>
+    <div class="project-tag">Saranya Properties Pvt Ltd</div>
+    <div class="project-tag">Sumadhura Sushantham</div>
+    <div class="project-tag">Sumadhura Eden Garden</div>
+    <div class="project-tag">Green Edge Developers</div>
+    <div class="project-tag">DS &amp; Jacks Construction</div>
+  </div>
+</div>
+
+<!-- OPERATIONAL EXCELLENCE -->
+<div class="content-section alt">
+  <div class="section-tag">Our Standards</div>
+  <div class="section-title">Operational <span>Excellence</span></div>
+  <div class="divider"></div>
+  <div class="ops-grid">
+    <div class="ops-item fade-up">
+      <div class="ops-icon">⏱️</div>
+      <h4>Strict Time Management</h4>
+      <p>Punctuality is our backbone — every delivery is planned and executed on schedule.</p>
+    </div>
+    <div class="ops-item fade-up" style="transition-delay:0.1s">
+      <div class="ops-icon">🛡️</div>
+      <h4>Zero Safety Compromise</h4>
+      <p>Rigorous safety protocols across all vehicle operations and site deliveries.</p>
+    </div>
+    <div class="ops-item fade-up" style="transition-delay:0.2s">
+      <div class="ops-icon">📄</div>
+      <h4>Transparent Documentation</h4>
+      <p>Clear billing and documentation for complete accountability and trust.</p>
+    </div>
+    <div class="ops-item fade-up" style="transition-delay:0.3s">
+      <div class="ops-icon">🚛</div>
+      <h4>Continuous Fleet Availability</h4>
+      <p>Fleet always ready — no downtime, no delays, no excuses.</p>
+    </div>
+    <div class="ops-item fade-up" style="transition-delay:0.4s">
+      <div class="ops-icon">🤝</div>
+      <h4>Long-Term Relationships</h4>
+      <p>We build lasting partnerships through consistent service and trust.</p>
+    </div>
+    <div class="ops-item fade-up" style="transition-delay:0.5s">
+      <div class="ops-icon">📡</div>
+      <h4>24/7 Coordination</h4>
+      <p>Round-the-clock dispatch coordination for emergency and planned deliveries.</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<div class="content-section">
+  <div class="section-tag">Who We Serve</div>
+  <div class="section-title">Industries <span>We Serve</span></div>
+  <div class="divider"></div>
+  <div class="industries-grid">
+    <div class="industry-item fade-up"><div class="icon">🏘️</div><p>Residential High-Rise</p></div>
+    <div class="industry-item fade-up" style="transition-delay:0.1s"><div class="icon">🏢</div><p>Commercial Complex</p></div>
+    <div class="industry-item fade-up" style="transition-delay:0.2s"><div class="icon">🛣️</div><p>Infrastructure</p></div>
+    <div class="industry-item fade-up" style="transition-delay:0.3s"><div class="icon">🏭</div><p>Industrial Construction</p></div>
+    <div class="industry-item fade-up" style="transition-delay:0.4s"><div class="icon">🔄</div><p>RMC Plants</p></div>
+    <div class="industry-item fade-up" style="transition-delay:0.5s"><div class="icon">🏗️</div><p>Gated Communities</p></div>
+  </div>
+</div>
+
+<!-- MISSION VISION -->
+<div class="content-section alt">
+  <div class="section-tag">Our Purpose</div>
+  <div class="section-title">Mission &amp; <span>Vision</span></div>
+  <div class="divider"></div>
+  <div class="mv-grid">
+    <div class="mv-card fade-up">
+      <h3>🎯 Our Mission</h3>
+      <p>To provide reliable and professional aggregates and sand transportation services that support timely project completion — ensuring our clients' construction timelines are never compromised.</p>
+    </div>
+    <div class="mv-card fade-up" style="transition-delay:0.2s">
+      <h3>🔭 Our Vision</h3>
+      <p>To become one of the most dependable and trusted construction material transport providers in the region — recognized for discipline, punctuality, and an unmatched commitment to client success.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip">
+  <blockquote>
+    SPT Transport Station – Delivering Materials with Strength, Speed & Reliability.
+  </blockquote>
+  <cite>— SPT Transport Station, SPT Enterprises Group</cite>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2>Need Reliable Aggregate Transportation?</h2>
+  <p>Contact SPT Transport Station for dedicated transport contracts, bulk delivery scheduling, and 24/7 logistics support.</p>
+  <div class="cta-btns">
+    <a href="tel:+919341236965" class="btn-primary">📞 Call Now: +91 93412 36965</a>
+    <a href="index.html#contact" class="btn-outline">Send Enquiry →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024 <span>SPT Enterprises</span>. All rights reserved. | <a href="index.html" style="color:var(--gold);text-decoration:none;">Back to Home</a></p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  window.addEventListener('scroll',()=>{
+    document.getElementById('scrollTop').classList.toggle('show',window.scrollY>400);
+  });
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
